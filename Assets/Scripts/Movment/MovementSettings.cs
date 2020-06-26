@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "CharacterMovement/Settings", fileName = "MovementData")]
+[CreateAssetMenu(menuName = "ArchHeroSettings/New Movenment", fileName = "NewMovementSettings")]
 public class MovementSettings : ScriptableObject
 {
     [SerializeField] private float _turnSpeed = 10f;

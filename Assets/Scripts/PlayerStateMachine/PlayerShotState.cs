@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IPlayerState : MonoBehaviour
+public class PlayerShotState : MonoBehaviour, IPlayerState
 {
+    public void Execute()
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +18,7 @@ public class IPlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Execute(); // ???????? YES!
         
     }
 }

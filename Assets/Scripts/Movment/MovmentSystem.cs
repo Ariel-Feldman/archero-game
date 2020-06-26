@@ -29,10 +29,10 @@ public class MovmentSystem : MonoBehaviour
         
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
-        _horizontal = _movmentInput.Horizontal;
-        _vertical = _movmentInput.Vertical;
+        _horizontal = _movmentInput.NewHorizontal;
+        _vertical = _movmentInput.NewVertical;
         _direction = new Vector3(_horizontal, 0f, _vertical).normalized;
 
         // check if we have real input, use sqrMagnitude for better perforence

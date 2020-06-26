@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IMovementInput
 {
-    float Horizontal {get;}
-    float Vertical {get;}
+    float NewHorizontal {get;}
+    float NewVertical {get;}
 }
