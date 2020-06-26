@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MovmentSystem : MonoBehaviour
+public class MovementSystem : MonoBehaviour
 {
     public MovementSettings MovementSettings; 
     //
