@@ -4,15 +4,11 @@ public class MovementSystem : MonoBehaviour
 {
     public MovementSettings MovementSettings; 
     //
-    private IMovementInput _movmentInput;
-    //
     private CharacterController _controller;
-    //
+    private IMovementInput _movementInput;
     private float _horizontal;
     private float _vertical;
     private Vector3 _direction;
-
-    private Transform _playerParent;
 
     // For smootheDump
     private float turnSmoothVelocity;
@@ -22,28 +18,25 @@ public class MovementSystem : MonoBehaviour
         // Bindings
         _controller = GetComponentInParent<CharacterController>();
 
-        // Just add what Input Component we chhose ( KeyBoard / Joystic...)
-        _movmentInput = GetComponent<IMovementInput>();
-
-        _playerParent = transform.parent;
-        
+        // Just add what Input Component we choose ( KeyBoard / Joystic...)
+        _movementInput = GetComponentInParent<IMovementInput>();
+       
     }
 
-    private void FixedUpdate() 
+    public void MovePlayer() 
     {
-        _horizontal = _movmentInput.NewHorizontal;
-        _vertical = _movmentInput.NewVertical;
+        _horizontal = _movementInput.NewHorizontal;
+        _vertical = _movementInput.NewVertical;
         _direction = new Vector3(_horizontal, 0f, _vertical).normalized;
 
-        // check if we have real input, use sqrMagnitude for better perforence
-        if (_direction.sqrMagnitude > 0.01f)
+        // check if we have real input, use sqrMagnitude for better performance
+        if (_direction.sqrMagnitude > 0.02f)
         {
-            float targetAnlge = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
             
-            float angle = Mathf.SmoothDampAngle(_playerParent.eulerAngles.y, targetAnlge, ref turnSmoothVelocity, 1 / MovementSettings.TurnSpeed);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 1 / MovementSettings.TurnSpeed);
             
-            _playerParent.rotation = Quaternion.Euler(0f, angle, 0f);
-            // _playerParent.rotation = Quaternion.Euler(0f, targetAnlge, 0f);
+            transform.parent.rotation = Quaternion.Euler(0f, angle, 0f);
 
             _controller.Move(_direction * MovementSettings.MoveSpeed * Time.deltaTime);
         }

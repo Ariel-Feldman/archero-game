@@ -1,35 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerStateManager : MonoBehaviour // Sineglton
+public class PlayerStateManager : MonoBehaviour
 {
-
-    private IPlayerState state;
-    private static PlayerStateManager _instance;
-    
-    public static PlayerStateManager Instance
-    {
-        get { return _instance; }
-    }
-
-    private PlayerMoveState playerMoveState;
-    private PlayerShotState playerShotState;
+    //
+    private IPlayerState _state;
+    private PlayerMoveState _playerMoveState;
+    private PlayerShotState _playerShotState;
 
     private void Awake()
     {
-        // Unity Simple Singleton Implementation - do nt try this with multithreading
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        } 
-        else 
-        {
-            _instance = this;
-        }
+        _playerMoveState = GetComponent<PlayerMoveState>();
+        _playerShotState = GetComponent<PlayerShotState>();
+    }
 
-        playerMoveState = new PlayerMoveState();
-        playerShotState = new PlayerShotState();
+    
+    private void Update() 
+    {
+        if(_state != null)
+            _state.Execute();
     }
 
 
@@ -41,26 +29,25 @@ public class PlayerStateManager : MonoBehaviour // Sineglton
         {
 
             case PlayerState.MovingState:
-                state = playerMoveState;
+                _state = _playerMoveState;
                 break;
                 
             case PlayerState.ShotingState:
-                state = playerShotState;
+                _state = _playerShotState;
                 break;
 
             // We will probably going to need some freeze state
-            // case PlayerState.FreezState:
-                // state = playerFreeztate;
+            // case PlayerState.FreezeState:
+                // state = playerFreezable;
                 // break;
 
             default:
-                // TODO - this place will probebly need attaion for fail casses
+                // TODO - this place will probably need attention for fail cases
                 // And if we going to have more playere state
                 break;
         }
-
-        state.Execute();
     }
+
 
 
 }

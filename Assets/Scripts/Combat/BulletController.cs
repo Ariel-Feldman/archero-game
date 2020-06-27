@@ -15,23 +15,15 @@ public class BulletController : MonoBehaviour
         private void Awake() 
         {
             _damage = BulletSettings.Damage;
-            _force = BulletSettings.Speed;
-            _distance = BulletSettings.Distance;
+            _force = BulletSettings.Force;
             //
             _rb = GetComponent<Rigidbody>();
         }
 
-        public void ShotByDirection(Vector3 targetDirection)
+        public void Fire(Vector3 direction)
         {
-            _rb.AddForce(this.transform.forward * _force);
+            // Normalized direct;
+            direction = direction.normalized;
+            _rb.AddForce(direction * _force);
         }
-
-        // TODO - still in WIP --> but it can be very useful for curved bullets! 
-        public void ShotByPosition(Vector3 targetPosition)
-        {
-            Vector3 targetDirection = (targetPosition - this.transform.position);
-        }
-
-
-
 }

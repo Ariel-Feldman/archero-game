@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7026f4bddfad69c44bfbedd40c2c849a, type: 3}
-  m_Name: PlayerMovmementSettings
+  m_Name: EnemieMovmement 1
   m_EditorClassIdentifier: 
-  _turnSpeed: 10
-  _moveSpeed: 10
+  _turnSpeed: 3
+  _moveSpeed: 3

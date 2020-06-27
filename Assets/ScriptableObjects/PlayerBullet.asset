@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8831861a8921044a82569e85565b360, type: 3}
-  m_Name: SimpleBullet
+  m_Name: PlayerBullet
   m_EditorClassIdentifier: 
   Damage: 10
-  Speed: 10
-  Distance: 10
-  JumpOrbitat: 0
+  Force: 300
+  JumpOrbital: 0
+  BulletImage: {fileID: 0}
+  BulletSound: {fileID: 0}

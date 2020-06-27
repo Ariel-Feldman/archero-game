@@ -4,8 +4,7 @@
 public class BulletSettings : ScriptableObject
 {
     public float Damage = 10f;
-    public float Speed = 10f;
-    public float Distance = 10f;
+    public float Force = 10f;
 
     public bool JumpOrbital;
 

@@ -1,28 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class KeyBoardInput : MonoBehaviour, IMovementInput
+public class AiInput : MonoBehaviour
 {
 
     // Reference PlayerStateManager in the inspector
     public PlayerStateManager PlayerStateManager;
-    // Fastest Input impact for this type of game I can think of
-    public float NewHorizontal {get; private set;}
-    public float NewVertical {get; private set;}
-
-    
-    public float OldHorizontal {get; private set;}
-    public float OldeVertical {get; private set;}
+    float MovementSpeed;
 
     private void Update() 
     {
         // Incase Level is paused, fast out;
         if (GameManager.Instance.InPauseMode)
             return;
-        NewHorizontal = Input.GetAxis("Horizontal");
-        NewVertical = Input.GetAxis("Vertical");
-
         // Switch between player state ( move | fire ) according to input change
-        if ((OldHorizontal != NewHorizontal) || (OldeVertical != NewVertical))
+        if (TimeToMove(MovementSpeed))
         {
             PlayerStateManager.SetState(PlayerState.MovingState);
             // Debug.Log("Moving State----------");
@@ -32,6 +26,11 @@ public class KeyBoardInput : MonoBehaviour, IMovementInput
             PlayerStateManager.SetState(PlayerState.ShotingState);
             // Debug.Log("||||||||||Shoting State");
         }
+    }
 
+    private bool TimeToMove(float movementSpeed)
+    {
+        // TODO - Movement For enemy here
+        return false;
     }
 }

@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class PlayerMoveState : MonoBehaviour, IPlayerState
 {
-    
+    public MovementSystem _movementSystem;
     public void Execute()
     {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Execute(); // ???????? YES!
-        
+        _movementSystem.MovePlayer();
     }
 }
