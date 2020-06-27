@@ -16,7 +16,8 @@ public class WeaponSystem : MonoBehaviour
     private void Awake() 
     {
         TargetSystem = GetComponent<ITargetSystem>();
-        playertransform = transform.parent.transform;
+        playertransform = transform.parent.transform;   
+        BulletPool.transform.parent = GameObject.Find("/BulletsPools").transform; 
     }
 
     public void EngageCombat()
@@ -30,7 +31,7 @@ public class WeaponSystem : MonoBehaviour
         if (dotProd > 0.9999f) 
         {
             // Shot bullet in local forward direction
-            ShootBullet(transform.TransformDirection(Vector3.forward));
+            ShootBullet(BarrelPosition.TransformDirection(Vector3.forward));
             return;
         }
          

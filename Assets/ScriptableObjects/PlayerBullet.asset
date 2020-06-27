@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerBullet
   m_EditorClassIdentifier: 
   Damage: 10
-  Force: 200
+  Force: 3
   JumpOrbital: 0
   BulletImage: {fileID: 0}
   BulletSound: {fileID: 0}

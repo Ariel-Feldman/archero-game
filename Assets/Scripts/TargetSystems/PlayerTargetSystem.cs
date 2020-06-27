@@ -5,25 +5,23 @@ using UnityEngine;
 public class PlayerTargetSystem : MonoBehaviour, ITargetSystem
 {
     private Transform _levelEnemies;
-    private List<Transform> _enemies = new List<Transform>(0);
+    private List<Transform> _enemies = new List<Transform>();
 
     public void InitTargetSystem() 
-    {
+    {  
         // Bindings
         _levelEnemies = GameObject.FindGameObjectWithTag("Enemies").transform;
-        // Unity do not support constructors
-        _enemies = new List<Transform>(); 
-        //
+        // Clear Enemies List
+        _enemies.Clear();
+        // Load Enemies list
         foreach (Transform child in _levelEnemies)
         {
             _enemies.Add(child);
         }
-        SortByRange();  
     }
 
     private void SortByRange()
     {
-        // _enemies = _enemies.OrderBy(enemy => Vector2.Distance(this.transform.position, enemy.transform.position)).ToList();;
         _enemies = _enemies.OrderBy(enemy => Vector3.Distance(transform.parent.transform.position, enemy.transform.position)).ToList();
     }
 

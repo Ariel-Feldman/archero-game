@@ -28,12 +28,18 @@ public class BulletController : MonoBehaviour
     {
         // Normalized direct;
         direction = direction.normalized;
+
         // _rb.AddForce(direction * _force);
-        _rb.AddForce(transform.forward * _force);
+        // _rb.AddForce(transform.forward * _force);
+
+        _rb.AddForce(direction * _force, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other) 
     {
+        // If we encounter bullet -> fast out
+        if(other.tag == "Bullet")
+            return;
         // Make Explostion Effect Here
         //
         // Return To pool

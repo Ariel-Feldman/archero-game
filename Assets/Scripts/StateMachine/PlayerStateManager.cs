@@ -16,6 +16,10 @@ public class PlayerStateManager : MonoBehaviour
     
     private void Update() 
     {
+        // We we in Pause mode - fast out
+        if(GameManager.Instance.InPauseMode)
+            return;
+
         if(_state != null)
             _state.Execute();
     }
@@ -47,7 +51,6 @@ public class PlayerStateManager : MonoBehaviour
                 break;
         }
     }
-
 
 
 }

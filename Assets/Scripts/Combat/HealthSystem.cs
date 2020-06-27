@@ -48,19 +48,17 @@ public class HealthSystem : MonoBehaviour
 
     private void HandleDie()
     {
-        //Blow Up tank To Parts
-        transform.parent = null; // avoid unwanted rotation while explode
-
-        // foreach (Transform child in transform)
-        // {
-        //     float randomX = UnityEngine.Random.Range(1, 5);
-        //     float randomY = UnityEngine.Random.Range(1, 5);
-        //     float randomZ = UnityEngine.Random.Range(1, 5);
-        //     StartCoroutine(Explode(child,new Vector3(randomX, randomY, randomZ),1.5f ));
-        // }
-        // GameManager.Instance
+        // TODO Blow Up FX here
+        // Die Effect
+        // Alert GameManager by send the parent game object
+        GameManager.Instance.EntityDie(transform.parent.gameObject);
     }
-    
+    public void RestartHealtSystem()
+    {
+        currentHealth = StartingHealth;
+        UpdateHealtBarImage(currentHealth);
+    }
+
 
     public void AddHealth(float amount)
     {
