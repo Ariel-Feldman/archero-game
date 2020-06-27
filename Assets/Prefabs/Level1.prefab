@@ -247,8 +247,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3767157590927907090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.29, z: -15}
+  m_LocalScale: {x: 20, y: 2.5008, z: 1}
   m_Children: []
   m_Father: {fileID: 6790521258408236612}
   m_RootOrder: 1
@@ -415,7 +415,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4842256686158029351}
-  - component: {fileID: 4219550597107167287}
   m_Layer: 0
   m_Name: Level1
   m_TagString: Untagged
@@ -441,18 +440,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4219550597107167287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4842256686158029350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19022f26992bbe449b6c49a4d5c66e96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5132489726304719189
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,8 +504,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5152956545741243573}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10, y: 0, z: 0.1}
-  m_LocalScale: {x: 30, y: 1, z: 1}
+  m_LocalPosition: {x: 10, y: 0.29, z: 0.1}
+  m_LocalScale: {x: 30, y: 2.5008, z: 1}
   m_Children: []
   m_Father: {fileID: 6790521258408236612}
   m_RootOrder: 3
@@ -610,8 +597,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5657965488774399663}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10, y: 0, z: 0.1}
-  m_LocalScale: {x: 30, y: 1, z: 1}
+  m_LocalPosition: {x: -10, y: 0.29, z: 0.1}
+  m_LocalScale: {x: 30, y: 2.5008, z: 1}
   m_Children: []
   m_Father: {fileID: 6790521258408236612}
   m_RootOrder: 2
@@ -1106,8 +1093,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7638356678354585962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.29, z: 15}
+  m_LocalScale: {x: 20, y: 2.5008, z: 1}
   m_Children: []
   m_Father: {fileID: 6790521258408236612}
   m_RootOrder: 0
@@ -1276,6 +1263,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NPC1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420010548619830307, guid: 3c41a2aebfe1a3e4e807db69ae4c1289,
+        type: 3}
+      propertyPath: PoolSize
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4664180753170302550, guid: 3c41a2aebfe1a3e4e807db69ae4c1289,
         type: 3}

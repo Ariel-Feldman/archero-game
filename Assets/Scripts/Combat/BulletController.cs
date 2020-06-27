@@ -2,28 +2,49 @@
 
 public class BulletController : MonoBehaviour
 {
-
+    // Scriptable object here
+    public BulletSettings BulletSettings;
     //
-    private float _damage;
+    [HideInInspector]
+    public float Damage;
+    //
     private float _force;
     private float _distance;
     private bool _isJumpy;
     private Rigidbody _rb;
+    private BulletsPool _bulletspool;
 
-    public BulletSettings BulletSettings;
+    private void Awake() 
+    {
+        //
+        Damage = BulletSettings.Damage;
+        _force = BulletSettings.Force;
+        //
+        _rb = GetComponent<Rigidbody>();
+        _bulletspool = GetComponentInParent<BulletsPool>();
+    }
 
-        private void Awake() 
-        {
-            _damage = BulletSettings.Damage;
-            _force = BulletSettings.Force;
-            //
-            _rb = GetComponent<Rigidbody>();
-        }
+    public void Fire(Vector3 direction)
+    {
+        // Normalized direct;
+        direction = direction.normalized;
+        // _rb.AddForce(direction * _force);
+        _rb.AddForce(transform.forward * _force);
+    }
 
-        public void Fire(Vector3 direction)
-        {
-            // Normalized direct;
-            direction = direction.normalized;
-            _rb.AddForce(direction * _force);
-        }
+    private void OnTriggerEnter(Collider other) 
+    {
+        // Make Explostion Effect Here
+        //
+        // Return To pool
+        _bulletspool.AddToPool(gameObject);    
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        // Draws a 5 unit long red line in front of the object
+        Gizmos.color = Color.red;
+        Vector3 direction = transform.TransformDirection(Vector3.forward) * 5;
+        Gizmos.DrawRay(transform.position, direction);
+    }
 }

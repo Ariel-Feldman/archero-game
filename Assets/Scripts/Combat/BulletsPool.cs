@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletsPool : MonoBehaviour
+public class BulletsPool : MonoBehaviour
 {
         public GameObject PoolPrefab;
         public Transform PoolTransform;
@@ -14,7 +14,7 @@ public class PlayerBulletsPool : MonoBehaviour
             ConstructPool();
         }
 
-        private void ConstructPool()
+        public void ConstructPool()
         {
             for (int i = 0; i < PoolSize; i ++)
             {
@@ -26,7 +26,6 @@ public class PlayerBulletsPool : MonoBehaviour
 
         public GameObject GetFromPool()
         {
-
             if (_poolQueue.Count == 0)
             {
                 Debug.LogWarning("Warning Pool Is Empty, Adding More Objects");
@@ -38,6 +37,13 @@ public class PlayerBulletsPool : MonoBehaviour
             instant.SetActive(true);
             return instant;
         }
+
+        public void AddToPool(GameObject instant)
+        {
+            instant.SetActive(false);
+            _poolQueue.Enqueue(instant);
+        }
+
         public void DeActivePool()
         {
             foreach (GameObject instant in _poolQueue)
@@ -45,7 +51,6 @@ public class PlayerBulletsPool : MonoBehaviour
                 instant.gameObject.SetActive(false);
             }
         }
-    
 }
 
 

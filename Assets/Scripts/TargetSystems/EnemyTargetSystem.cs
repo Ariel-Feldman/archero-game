@@ -3,7 +3,11 @@
 public class EnemyTargetSystem : MonoBehaviour, ITargetSystem
 {
     private Transform Player;
-
+    public void InitTargetSystem()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    
     public Vector3 GetClosestTargetPosition()
     {
         // lazy Init
@@ -12,10 +16,5 @@ public class EnemyTargetSystem : MonoBehaviour, ITargetSystem
             InitTargetSystem();
         }
         return Player.position;
-    }
-
-    public void InitTargetSystem()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 }
