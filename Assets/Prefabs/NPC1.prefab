@@ -587,12 +587,17 @@ PrefabInstance:
     - target: {fileID: 4890765786839366471, guid: a2fc9ab280a343545b0ad3cb335260a6,
         type: 3}
       propertyPath: m_Radius
-      value: 0.57785654
+      value: 0.7174027
       objectReference: {fileID: 0}
     - target: {fileID: 4890765786839366471, guid: a2fc9ab280a343545b0ad3cb335260a6,
         type: 3}
       propertyPath: m_Center.z
       value: 0.07785654
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890765786839366471, guid: a2fc9ab280a343545b0ad3cb335260a6,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13954616
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2fc9ab280a343545b0ad3cb335260a6, type: 3}

@@ -28,7 +28,7 @@ public class BulletsPool : MonoBehaviour
         {
             if (_poolQueue.Count == 0)
             {
-                Debug.LogWarning("Warning Pool Is Empty, Adding More Objects");
+                Debug.Log("Pool Is Empty, Adding More Objects");
                 ConstructPool();
             }
 
