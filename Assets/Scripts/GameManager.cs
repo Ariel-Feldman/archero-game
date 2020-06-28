@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-
-    [HideInInspector]
-    public bool InPauseMode;
-    //
+    // 
     public PlayerTargetSystem PlayerTargetSystem;
     public HealthSystem PlayerHealthSystem;
     public Transform PlayerStartPosition;
@@ -20,11 +15,20 @@ public class GameManager : Singleton<GameManager>
     private GameObject _currentLevelGO;
     private GameObject _player;
 
+    // We share this semaphore Ionorder to stop update loops when not in play mode (old trick:)
+    // No need to show in inspector
+    [HideInInspector]
+    public bool InPauseMode;
 
     private void Awake() 
     {
-        InPauseMode = true;
+        // Binds
         _player = GameObject.FindWithTag("Player");
+    }
+    
+    private void Start() 
+    {  
+        InPauseMode = true;
     }
 
     public void StartLevel(int levelNumber) 
@@ -34,7 +38,8 @@ public class GameManager : Singleton<GameManager>
         // Destroy Old Loaded Levels, if any
         foreach(Transform child in LevelParent)
         {
-            // TODo change it from DestroyImmediate - hot Fix
+            // HOTFIX
+            // TODO change it from DestroyImmediate - 
             DestroyImmediate(child.gameObject);
         }
         _currentLevelGO = Instantiate(LevelPrefabs[levelNumber], LevelParent);
@@ -44,35 +49,39 @@ public class GameManager : Singleton<GameManager>
         PlayerHealthSystem.RestartHealtSystem();
         // Reset Player Position
         _player.transform.position = PlayerStartPosition.position;
-        //
         _currentLevelNumber = levelNumber;
+        // Release the kraken!!
         InPauseMode = false;
     }
 
     public void EndLevel(int LevelNumber) 
     {
         InPauseMode = true;
-        // Level End FX
+        // TODO Level end FX here
         canvasManager.LevelEndFlow();
     }
 
+    // TODO - this should be an event system
+    // All the Health systems in game is calling Gamemanager.EntityDie
     public void EntityDie(GameObject entityDie)
-    {
+    {   
+        // If it was player - game over
         if (entityDie.tag == "Player")
         {
-            Debug.Log("Player Died");
             StartGameEndSequence();
         }
 
         if (entityDie.tag == "Enemy")
         {
-            entityDie.GetComponentInChildren<NPController>().killMe();
-            // Check if any enemy left
+            entityDie.GetComponentInChildren<NPCController>().killMe();
+            // Check if any enemy left-> level complete
             if (GameObject.FindGameObjectsWithTag("Enemy").Length <=0)
             {
-                Debug.Log("Level Over");
                 EndLevel(_currentLevelNumber);    
             }
+
+            // HOTFIX
+            PlayerTargetSystem.InitTargetSystem();
         }
     }
     private void StartGameEndSequence()

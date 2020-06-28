@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8831861a8921044a82569e85565b360, type: 3}
   m_Name: PlayerBullet
   m_EditorClassIdentifier: 
-  Damage: 10
-  Force: 3
+  Damage: 20
+  Force: 4
   JumpOrbital: 0
   BulletImage: {fileID: 0}
   BulletSound: {fileID: 0}

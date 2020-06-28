@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerTargetSystem : MonoBehaviour, ITargetSystem
 {
+    // we need this class to hold updated list on enemies 
+    // Arranged by distance order
     private Transform _levelEnemies;
     private List<Transform> _enemies = new List<Transform>();
 
@@ -16,15 +18,12 @@ public class PlayerTargetSystem : MonoBehaviour, ITargetSystem
         // Load Enemies list
         foreach (Transform child in _levelEnemies)
         {
-            _enemies.Add(child);
+            if(child.gameObject.activeSelf)
+                _enemies.Add(child);
         }
     }
 
-    private void SortByRange()
-    {
-        _enemies = _enemies.OrderBy(enemy => Vector3.Distance(transform.parent.transform.position, enemy.transform.position)).ToList();
-    }
-
+    // This will be called from Weapon system
     public Vector3 GetClosestTargetPosition()
     {
         if (_enemies.Count > 0)
@@ -34,10 +33,16 @@ public class PlayerTargetSystem : MonoBehaviour, ITargetSystem
         }
         else
         {
-            Debug.Log("No Enemy found");
-            // Return Vector3.negativeInfinity for now
+            // TODO - make better fail safe here
+            Debug.Log("No Enemies found");
             return Vector3.negativeInfinity;
         }
+    }
+
+    private void SortByRange()
+    {
+        // Fastest by using LINQ
+        _enemies = _enemies.OrderBy(enemy => Vector3.Distance(transform.parent.transform.position, enemy.transform.position)).ToList();
     }
 
 }

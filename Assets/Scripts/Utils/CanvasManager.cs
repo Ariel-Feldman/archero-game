@@ -9,9 +9,8 @@ public class CanvasManager : MonoBehaviour
     public Button TopButton;
     public Image TopImage;
     public int LevelsToDisplay;
-
+    //
     private Animator animator;
-
     private int _levelToLoad;
 
     public void LevelStartFlow()
@@ -27,7 +26,7 @@ public class CanvasManager : MonoBehaviour
     {   
         EnableCanvas();
         FadeInEffect();
-        TopText.text = "Level Complete Press Start For Next level";
+        TopText.text = String.Format("Level {0} Complete !!!    Press Start For Next level", _levelToLoad + 1);
         // increment level
         _levelToLoad++;
 
@@ -42,7 +41,7 @@ public class CanvasManager : MonoBehaviour
     {
         EnableCanvas();
         FadeInEffect();
-        TopText.text = "GameOver Press Start for restarting";
+        TopText.text = "GameOver       Press Start for restarting";
         //Reset Level
         _levelToLoad = 0;
     }

@@ -3,62 +3,73 @@
 [RequireComponent(typeof(ITargetSystem))]
 public class WeaponSystem : MonoBehaviour
 {
-    // bind By Inspector
+    // Set WeaponSystem additional configuration here
     public float ShotFrequency;
     public float RotationSpeed;
+
+    // Bind By Inspector
     public Transform BarrelPosition;
     public ITargetSystem TargetSystem;
     public BulletsPool BulletPool; 
     //
-    private Transform playertransform; 
+    private Transform _playerTransform; 
     private float nextTimeToShot;
 
     private void Awake() 
     {
+        // Binds
         TargetSystem = GetComponent<ITargetSystem>();
-        playertransform = transform.parent.transform;   
+
+        // The player is our parent
+        _playerTransform = transform.parent.transform; 
+
+        // We detach the bulletpool so it will not effect bullets positions  
         BulletPool.transform.parent = GameObject.Find("/BulletsPools").transform; 
+        // HotFix - for some reason the bullet pool changing its transform
+        BulletPool.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
     }
 
+    // EngageCombat will be called in its parent ShotState class each update() when in state
     public void EngageCombat()
     {
+        // Fast out if we not in game mode
+        if(GameManager.Instance.InPauseMode)
+            return;
+        
+        // Get Closeset Target Direction
         Vector3 targetPosition = TargetSystem.GetClosestTargetPosition();
-        Vector3 targetDirection = (targetPosition - playertransform.position).normalized;
+        Vector3 targetDirection = (targetPosition - _playerTransform.position).normalized;
 
-        // Check if we facing to enemy - if yes, start to shoot
-        float dotProd = Vector3.Dot(targetDirection, playertransform.forward); 
-        // When Facing game objecu the dor product of their direction is close to 1;
-        if (dotProd > 0.9999f) 
-        {
-            // Shot bullet in local forward direction
-            ShootBullet(BarrelPosition.TransformDirection(Vector3.forward));
+        // Check if we facing to enemy by dot product of the direction and my face 
+        // If it is close to 1, the face eachother
+        float dotProd = Vector3.Dot(targetDirection, _playerTransform.forward);
+
+        // Check if its time to shoot
+        if ((dotProd > 0.9999f) && (Time.time > nextTimeToShot))
+        {   
+            // Shot bullet in forward direction
+            ShootBullet(targetDirection);
+            // update By Fire Frequency
+            nextTimeToShot = Time.time + ShotFrequency;
             return;
         }
          
-        // The step size is equal to speed times frame time.
-        float singleStep = RotationSpeed * Time.deltaTime;
-
-        // Rotate the forward vector towards the target direction by one step
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.1f);
+        // If Not Facing closest enemy - Rotate towards it
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, RotationSpeed * Time.deltaTime, 0.1f);
         
         // Calculate a rotation a step closer to the target and applies rotation to this object
-        playertransform.rotation = Quaternion.LookRotation(newDirection);
-        // Rotate To first enemy and the shot
+        _playerTransform.rotation = Quaternion.LookRotation(newDirection);
     }
 
-    public void ShootBullet (Vector3 direction)
+    private void ShootBullet(Vector3 direction)
     {
-        // Check if we in fire rate conditions
-        if (Time.time > nextTimeToShot)
-        {
-            nextTimeToShot = Time.time + ShotFrequency;
-            // Get bullet from the pool
-            GameObject bullet = BulletPool.GetFromPool();
-            // Put it in its start position
-            // bullet.transform.position = BarrelPosition.position;
-            bullet.transform.SetPositionAndRotation(BarrelPosition.position,BarrelPosition.rotation);
-            // Fire Bullet
-            bullet.GetComponentInChildren<BulletController>().Fire(direction);
-        }
+        // Get bullet from the pool
+        GameObject bullet = BulletPool.GetFromPool();
+        // Reset its position according to the barrel position
+        bullet.transform.SetPositionAndRotation(BarrelPosition.position, Quaternion.identity);
+        // This to help debug the wired bug in bullet movement
+        Debug.DrawRay(bullet.transform.position, direction, Color.cyan, 0.1f);
+        // Fire Bullet
+        bullet.GetComponentInChildren<BulletController>().Fire(direction);
     }
 }

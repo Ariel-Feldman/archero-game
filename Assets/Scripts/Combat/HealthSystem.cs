@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
-
     public float StartingHealth = 75;
-    public float HealthMaXLimit = 100;
+    public float HealthMaxLimit = 100;
     public float HealthMinLimit = 0;
     //
     public Image healthFillImage;
     //
     private float currentHealth;
-
 
     private void Start() 
     {
@@ -20,7 +17,6 @@ public class HealthSystem : MonoBehaviour
         currentHealth = StartingHealth;
         UpdateHealtBarImage(currentHealth);
     }
-
 
     public void SubtractHealth(float amount)
     {
@@ -48,8 +44,7 @@ public class HealthSystem : MonoBehaviour
 
     private void HandleDie()
     {
-        // TODO Blow Up FX here
-        // Die Effect
+        // TODO Die Effect here
         // Alert GameManager by send the parent game object
         GameManager.Instance.EntityDie(transform.parent.gameObject);
     }
