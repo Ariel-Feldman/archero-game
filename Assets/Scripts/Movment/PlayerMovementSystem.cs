@@ -28,8 +28,8 @@ public class PlayerMovementSystem : MonoBehaviour, IMovementSystem
     // MovePlayer will be called in its parent ShotState class each update() when in state
     public void MovePlayer() 
     {
-        _horizontal = _movementInput.NewHorizontal;
-        _vertical = _movementInput.NewVertical;
+        _horizontal = _movementInput.Horizontal;
+        _vertical = _movementInput.Vertical;
         _direction = new Vector3(_horizontal, 0f, _vertical).normalized;
 
         // Check if we have real input, use sqrMagnitude for better performance

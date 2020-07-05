@@ -13,7 +13,7 @@ public class StateManager : MonoBehaviour
         _playerShotState = GetComponent<ShotState>();
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         // If we in Pause mode - fast out
         if(GameManager.Instance.InPauseMode)
